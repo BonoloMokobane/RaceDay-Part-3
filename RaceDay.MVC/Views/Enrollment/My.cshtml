@@ -1,0 +1,37 @@
+﻿@model List<RaceDay.MVC.Models.EnrollmentViewModel>
+
+@{
+    ViewData["Title"] = "My Enrollments";
+}
+
+<div class="container py-4">
+    <h2>My Enrollments</h2>
+    <p>Keep track of the events you've joined.</p>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Category</th>
+                <th>Enrollment Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var enrollment in Model)
+            {
+                <tr>
+                    <td>@enrollment.EventName</td>
+                    <td>@enrollment.CategoryName</td>
+                    <td>@enrollment.EnrollmentDate.ToString("dd MMM yyyy")</td>
+                    <td>@enrollment.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

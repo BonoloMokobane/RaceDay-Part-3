@@ -1,0 +1,61 @@
+﻿@model List<RaceDay.MVC.Models.EventViewModel>
+
+@{
+    ViewData["Title"] = "Manage Events";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1>Manage Events</h1>
+            <p class="text-muted">Create and manage your Race Day events.</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary">Create Event</a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            No events were returned by the API yet.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        @if (!string.IsNullOrWhiteSpace(item.BannerImageUrl))
+                        {
+                            <img src="@item.BannerImageUrl"
+                                 class="card-img-top"
+                                 style="height:180px; object-fit:cover;"
+                                 alt="@item.Name" />
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p>@item.Description</p>
+                            <p><strong>Date:</strong> @item.EventDate.ToString("dd MMM yyyy HH:mm")</p>
+                            <p><strong>Location:</strong> @item.Location</p>
+                            <p><strong>Distance:</strong> @item.Distance km</p>
+                            <p><strong>Type:</strong> @item.EventType</p>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.EventId"
+                               class="btn btn-outline-primary">
+                                Edit Event
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
