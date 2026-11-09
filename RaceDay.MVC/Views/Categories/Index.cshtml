@@ -1,0 +1,60 @@
+﻿@model List<RaceDay.MVC.Models.CategoryViewModel>
+
+@{
+    ViewData["Title"] = "Event Categories";
+    int eventId = (int)ViewBag.EventId;
+}
+
+<div class="container py-4">
+    <h2>Event Categories</h2>
+    <p>Manage the categories available for this event.</p>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <a asp-action="Create" asp-route-eventId="@eventId"
+       class="btn btn-primary mb-3">Add Category</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>@category.Description</td>
+                    <td>
+                        <a asp-action="Edit"
+                           asp-route-id="@category.CategoryId"
+                           class="btn btn-sm btn-warning">Edit</a>
+
+                        <form asp-action="Delete" method="post"
+                              class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id"
+                                   value="@category.CategoryId" />
+                            <input type="hidden" name="eventId"
+                                   value="@eventId" />
+                            <button class="btn btn-sm btn-danger"
+                                    type="submit"
+                                    onclick="return confirm('Delete this category?')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-controller="OrganizerEvents" asp-action="Index"
+       class="btn btn-outline-secondary">Back to Events</a>
+</div>

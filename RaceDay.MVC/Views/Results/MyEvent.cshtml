@@ -1,0 +1,35 @@
+﻿@model List<RaceDay.MVC.Models.ResultViewModel>
+
+@{
+    ViewData["Title"] = "Event Results";
+}
+
+<div class="container py-4">
+    <h2>Event Results</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Participant</th>
+                <th>Finish Time</th>
+                <th>Position</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model)
+            {
+                <tr>
+                    <td>@result.ParticipantName</td>
+                    <td>@result.FinishTime</td>
+                    <td>@result.FinishingPosition</td>
+                    <td>
+                        <a asp-controller="Results" asp-action="Edit"
+                           asp-route-enrollmentId="@result.EnrollmentId"
+                           asp-route-eventId="@result.EventId"
+                           class="btn btn-sm btn-warning">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

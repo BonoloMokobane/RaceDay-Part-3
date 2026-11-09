@@ -1,0 +1,36 @@
+﻿@model RaceDay.MVC.Models.ResultViewModel
+
+@{
+    ViewData["Title"] = "Edit Result";
+}
+
+<div class="container py-4">
+    <h2>Edit Result</h2>
+
+    <form asp-action="Edit" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <input asp-for="EnrollmentId" type="hidden" />
+        <input asp-for="EventId" type="hidden" />
+
+        <div class="mb-3">
+            <label asp-for="FinishTime" class="form-label">
+                Finish Time
+            </label>
+            <input asp-for="FinishTime" type="time"
+                   step="1" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="FinishingPosition"
+                   class="form-label"></label>
+            <input asp-for="FinishingPosition"
+                   type="number" min="1" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Update Result
+        </button>
+    </form>
+</div>

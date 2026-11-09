@@ -1,0 +1,40 @@
+﻿@model List<RaceDay.MVC.Models.EnrollmentViewModel>
+
+@{
+    ViewData["Title"] = "Event Enrollments";
+}
+
+<div class="container py-4">
+    <h2>Event Enrollments</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Participant</th>
+                <th>Category</th>
+                <th>Enrollment Date</th>
+                <th>Status</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var enrollment in Model)
+            {
+                <tr>
+                    <td>@enrollment.ParticipantName</td>
+                    <td>@enrollment.CategoryName</td>
+                    <td>@enrollment.EnrollmentDate.ToString("dd MMM yyyy")</td>
+                    <td>@enrollment.Status</td>
+                    <td>
+                        <a asp-controller="Results" asp-action="Create"
+                           asp-route-enrollmentId="@enrollment.EnrollmentId"
+                           asp-route-eventId="@enrollment.EventId"
+                           class="btn btn-sm btn-primary">
+                            Capture Result
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

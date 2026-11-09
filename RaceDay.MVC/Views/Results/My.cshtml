@@ -1,0 +1,29 @@
+﻿@model List<RaceDay.MVC.Models.ResultViewModel>
+
+@{
+    ViewData["Title"] = "My Results";
+}
+
+<div class="container py-4">
+    <h2>My Race Results</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Finish Time</th>
+                <th>Position</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model)
+            {
+                <tr>
+                    <td>@result.EventName</td>
+                    <td>@result.FinishTime</td>
+                    <td>@result.FinishingPosition</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

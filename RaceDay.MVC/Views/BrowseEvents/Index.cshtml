@@ -1,0 +1,53 @@
+﻿@model List<RaceDay.MVC.Models.EventViewModel>
+
+@{
+    ViewData["Title"] = "Browse Events";
+}
+
+<div class="container py-4">
+    <h1>Discover Race Day Events</h1>
+    <p class="text-muted">Find your next running, walking or cycling event.</p>
+
+    <div class="row g-4 mt-2">
+        @if (Model.Count == 0)
+        {
+            <div class="col-12">
+                <div class="alert alert-info">
+                    No events are currently available.
+                </div>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        @if (!string.IsNullOrWhiteSpace(item.BannerImageUrl))
+                        {
+                            <img src="@item.BannerImageUrl"
+                                 class="card-img-top"
+                                 style="height:190px; object-fit:cover;"
+                                 alt="@item.Name" />
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p>@item.Description</p>
+                            <p><strong>Date:</strong> @item.EventDate.ToString("dd MMM yyyy")</p>
+                            <p><strong>Location:</strong> @item.Location</p>
+                            <p><strong>Distance:</strong> @item.Distance km</p>
+                            <p><strong>Type:</strong> @item.EventType</p>
+
+                            <a asp-action="Details"
+                               asp-route-id="@item.EventId"
+                               class="btn btn-primary">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
